@@ -1,0 +1,13 @@
+name: crypto_pipeline
+version: "1.0.0"
+config-version: 2
+profile: crypto_pipeline
+
+model-paths: ["models"]
+
+models:
+  crypto_pipeline:
+    silver:
+      +materialized: view
+    gold:
+      +materialized: table
