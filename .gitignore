@@ -5,3 +5,4 @@ dbt_project/target/
 dbt_project/logs/
 __pycache__/
 *.pyc
+dbt_project/.user.yml
