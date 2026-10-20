@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: stg_prices
+    description: "أسعار نظيفة من raw_prices بعد الفلترة"
+    columns:
+      - name: id
+        description: "المعرّف الفريد للقراءة"
+        data_tests:
+          - unique
+          - not_null
+      - name: symbol
+        description: "رمز العملة"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["BTCUSDT", "ETHUSDT", "SOLUSDT"]
+      - name: price
+        description: "السعر بالدولار (USDT)"
+        data_tests:
+          - not_null
+      - name: fetched_at
+        data_tests:
+          - not_null

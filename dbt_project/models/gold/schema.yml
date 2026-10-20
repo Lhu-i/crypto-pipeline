@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: price_per_minute
+    description: "ملخص الأسعار لكل عملة لكل دقيقة"
+    columns:
+      - name: symbol
+        data_tests:
+          - not_null
+      - name: fetched_minute
+        data_tests:
+          - not_null
+      - name: samples
+        data_tests:
+          - not_null
+      - name: avg_price
+        data_tests:
+          - not_null
