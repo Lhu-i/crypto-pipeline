@@ -1,4 +1,5 @@
 ﻿# Crypto Price Data Pipeline
+![dbt-tests](https://github.com/Lhu-i/crypto-pipeline/actions/workflows/dbt.yml/badge.svg)
 
 An end-to-end data engineering project. It pulls live crypto prices from the Binance API, stores raw data in PostgreSQL, transforms it with dbt (Bronze → Silver → Gold), validates it with data quality tests, orchestrates it with Prefect, and serves a Streamlit dashboard.
 
