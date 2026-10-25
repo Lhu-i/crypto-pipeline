@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: price_per_minute
-    description: "ملخص الأسعار لكل عملة لكل دقيقة"
+    description: "Price summary per symbol per minute"
     columns:
       - name: symbol
         data_tests:
@@ -16,3 +16,41 @@ models:
       - name: avg_price
         data_tests:
           - not_null
+
+  - name: dim_symbol
+    description: "One row per symbol"
+    columns:
+      - name: symbol_key
+        data_tests:
+          - unique
+          - not_null
+
+  - name: dim_time
+    description: "One row per minute"
+    columns:
+      - name: minute_ts
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fact_prices
+    description: "Grain: one row per symbol per minute"
+    columns:
+      - name: price_key
+        data_tests:
+          - unique
+          - not_null
+      - name: symbol_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_symbol')
+                field: symbol_key
+      - name: minute_ts
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_time')
+                field: minute_ts
