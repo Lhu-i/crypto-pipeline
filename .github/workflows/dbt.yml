@@ -1,0 +1,57 @@
+name: dbt-tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  dbt-build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: crypto_user
+          POSTGRES_PASSWORD: crypto_pass
+          POSTGRES_DB: crypto_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U crypto_user -d crypto_db"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          pip install dbt-postgres
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Seed raw data
+        run: |
+          PGPASSWORD=crypto_pass psql -h localhost -U crypto_user -d crypto_db -c "
+          CREATE TABLE raw_prices (
+              id SERIAL PRIMARY KEY,
+              symbol TEXT NOT NULL,
+              price NUMERIC(20, 8) NOT NULL,
+              fetched_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+          );
+          INSERT INTO raw_prices (symbol, price) VALUES
+              ('BTCUSDT', 82000), ('ETHUSDT', 2400), ('SOLUSDT', 106);"
+
+      - name: Create dbt profile
+        run: cp dbt_project/profiles.yml.example dbt_project/profiles.yml
+
+      - name: Run dbt build
+        working-directory: dbt_project
+        run: dbt build
