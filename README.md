@@ -103,7 +103,8 @@ Then open http://localhost:8501.
 
 ## Data quality
 
-`dbt build` runs the models together with 10 data tests:
+- `fact_prices` keys must exist in `dim_symbol` and `dim_time` (relationships tests)
+- GitHub Actions runs `dbt build` on sample data on every push
 
 - `id` is unique and not null
 - `symbol` is not null and one of `BTCUSDT`, `ETHUSDT`, `SOLUSDT`
@@ -123,6 +124,8 @@ Because `dbt build` runs tests between layers, a failing Silver test stops the G
 - Prefect is used as a Python library (flows, tasks, retries). The scheduling is a simple Python loop because the Prefect server and UI had a dependency conflict (FastAPI/Starlette versions) in my environment.
 - This is near-real-time polling every 60 seconds, not true streaming.
 - Data has gaps for periods when the pipeline was not running.
+- `requirements.txt` does not pin versions, so installs may differ over time.
+- CI tests dbt on sample data only; ingestion, Prefect and the dashboard are tested manually.
 
 ## Next steps
 
@@ -130,7 +133,9 @@ Because `dbt build` runs tests between layers, a failing Silver test stops the G
 - [ ] Move orchestration to Airflow or a working Prefect server
 - [ ] Add GitHub Actions to run dbt tests on every push
 - [ ] Add more symbols and an incremental dbt model
-
+- [x] Add GitHub Actions to run dbt tests on every push
+- [ ] Add pytest tests for the Python code
+- [ ] Pin dependency versions
 ## What I learned
 
 Docker and containers, Git and GitHub workflow, the Medallion architecture, dbt models and tests, orchestration with retries, and debugging dependency conflicts.
