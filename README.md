@@ -23,6 +23,8 @@ flowchart LR
 | Bronze | `raw_prices` | Raw prices exactly as fetched, with a UTC timestamp |
 | Silver | `stg_prices` (view) | Filtered (price > 0, symbol not null) with a per-minute bucket |
 | Gold | `price_per_minute` (table) | Average, min, max price and sample count per symbol per minute |
+| Gold | `dim_symbol`, `dim_time` (tables) | Dimensions: symbol and minute attributes |
+| Gold | `fact_prices` (table) | Fact table: one row per symbol per minute, linked to the dimensions |
 
 ## Tech stack
 
