@@ -131,4 +131,4 @@ Because `dbt build` runs tests between layers, a failing Silver test stops the G
 
 ## What I learned
 
-Docker and containers, Git and GitHub workflow, the Medallion architecture, dbt models and tests, orchestration with retries, and debugging dependency conflicts.# Crypto Pipeline
+Docker and containers, Git and GitHub workflow, the Medallion architecture, dbt models and tests, orchestration with retries, and debugging dependency conflicts.
