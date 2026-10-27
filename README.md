@@ -65,8 +65,7 @@ git clone https://github.com/Lhu-i/crypto-pipeline.git
 cd crypto-pipeline
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+pip install -r requirements.lock.txt```
 
 **2. Create the config files**
 
@@ -124,8 +123,7 @@ Because `dbt build` runs tests between layers, a failing Silver test stops the G
 - Prefect is used as a Python library (flows, tasks, retries). The scheduling is a simple Python loop because the Prefect server and UI had a dependency conflict (FastAPI/Starlette versions) in my environment.
 - This is near-real-time polling every 60 seconds, not true streaming.
 - Data has gaps for periods when the pipeline was not running.
-- `requirements.txt` does not pin versions, so installs may differ over time.
-- CI tests dbt on sample data only; ingestion, Prefect and the dashboard are tested manually.
+- CI tests dbt on sample data only; ingest- Dependency versions are pinned in `requirements.lock.txt` (tested on Windows with Python 3.13). The lock file is not guaranteed to work on other operating systems.ion, Prefect and the dashboard are tested manually.
 
 ## Next steps
 
@@ -134,7 +132,7 @@ Because `dbt build` runs tests between layers, a failing Silver test stops the G
 - [ ] Add more symbols and an incremental dbt model
 - [x] Add GitHub Actions to run dbt tests on every push
 - [ ] Add pytest tests for the Python code
-- [ ] Pin dependency versions
+- [x] Pin dependency versions
 ## What I learned
 
 Docker and containers, Git and GitHub workflow, the Medallion architecture, dbt models and tests, orchestration with retries, and debugging dependency conflicts.
