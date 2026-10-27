@@ -131,7 +131,6 @@ Because `dbt build` runs tests between layers, a failing Silver test stops the G
 
 - [ ] Replace polling with true streaming (Redpanda/Kafka producer and consumer)
 - [ ] Move orchestration to Airflow or a working Prefect server
-- [ ] Add GitHub Actions to run dbt tests on every push
 - [ ] Add more symbols and an incremental dbt model
 - [x] Add GitHub Actions to run dbt tests on every push
 - [ ] Add pytest tests for the Python code
