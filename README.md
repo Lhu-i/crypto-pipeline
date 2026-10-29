@@ -66,8 +66,7 @@ cd crypto-pipeline
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.lock.txt
-````powershell
-Copy-Item .env.example .env
+```
 ````
 
 **2. Create the config files**
