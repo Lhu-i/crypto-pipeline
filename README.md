@@ -62,12 +62,11 @@ crypto-pipeline/
 
 ```powershell
 git clone https://github.com/Lhu-i/crypto-pipeline.git
-cd crypto-pipeline
+```cd crypto-pipeline
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.lock.txt
 ```
-````
 
 **2. Create the config files**
 
