@@ -10,12 +10,13 @@ An end-to-end data engineering project. It pulls live crypto prices from the Bin
 ```mermaid
 flowchart LR
     A[Binance API] --> B[Python ingestion]
-    B --> C[(PostgreSQL: raw_prices - Bronze)]
-    C --> D[dbt: stg_prices - Silver]
-    D --> E[dbt: price_per_minute - Gold]
+    B --> C[(PostgreSQL raw_prices - Bronze)]
+    C --> D[dbt stg_prices - Silver]
+    D --> E[dbt price_per_minute - Gold]
     E --> F[Streamlit dashboard]
-    G[Prefect flow: retries and schedule] -.-> B
-    G -.-> D
+    E --> G["dbt star schema: fact_prices, dim_symbol, dim_time"]
+    H[Prefect flow: retries and schedule] -.-> B
+    H -.-> D
 ```
 
 | Layer | Object | Description |
