@@ -115,7 +115,7 @@ Then open http://localhost:8501.
 - `symbol` is not null and one of `BTCUSDT`, `ETHUSDT`, `SOLUSDT`
 - `price`, `fetched_at` and all Gold columns are not null
 
-Because `dbt build` runs tests between layers, a failing Silver test stops the Gold model from being built. I verified this by inserting a fake symbol and confirming the test failed.
+`dbt build` runs each model and then its tests, so a failing test on one layer stops the models that depend on it. I verified the tests catch bad data by inserting a fake symbol and confirming the accepted_values test failed.
 
 ## Design decisions
 
