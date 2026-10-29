@@ -37,24 +37,28 @@ flowchart LR
 | Transformation and tests | dbt-postgres |
 | Orchestration | Prefect (flow, tasks, retries) |
 | Dashboard | Streamlit, Altair |
+| CI | GitHub Actions (dbt build on sample data) |
 
 ## Project structure
 
 ```
 crypto-pipeline/
-├── dashboard/app.py          # Streamlit dashboard
-├── dbt_project/              # dbt models and tests
+├── .github/workflows/dbt.yml   # CI: dbt build on sample data
+├── dashboard/app.py            # Streamlit dashboard
+├── dbt_project/                # dbt models and tests
 │   └── models/{silver,gold}/
+├── docs/dashboard.png
 ├── flows/
-│   ├── pipeline.py           # Prefect flow: fetch -> load -> dbt build
-│   └── serve.py              # Runs the flow every 60 seconds
+│   ├── pipeline.py             # Prefect flow: fetch -> load -> dbt build
+│   └── serve.py                # Runs the flow every 60 seconds
 ├── ingestion/
-│   ├── fetch_price.py        # Binance API client
-│   ├── load_prices.py        # Writes prices to PostgreSQL
-│   └── run_loop.py           # Simple continuous ingestion loop
-├── docker-compose.yml        # PostgreSQL
+│   ├── fetch_price.py          # Binance API client
+│   ├── load_prices.py          # Writes prices to PostgreSQL
+│   └── run_loop.py             # Simple continuous ingestion loop
+├── docker-compose.yml          # PostgreSQL
 ├── .env.example
-└── requirements.txt
+├── requirements.txt            # Top-level dependencies
+└── requirements.lock.txt       # Pinned versions (Windows, Python 3.13)
 ```
 
 ## Getting started (Windows PowerShell)
